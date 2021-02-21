@@ -15,7 +15,7 @@ public class UserInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
-        users = UserManager.getInstance();
+        users = UserManager.getInstance(UserInfo.this);
         nextButton();
     }
 
@@ -37,7 +37,7 @@ public class UserInfo extends AppCompatActivity {
         EditText university = findViewById(R.id.university);
         EditText programmingLanguages = findViewById(R.id.programming_languages);
         EditText interests = findViewById(R.id.interests);
-        users.addUser(new Users(name.toString(), university.toString(), programmingLanguages.toString(), interests.toString()));
+        users.addUser(new Users(name.getText().toString(), university.getText().toString(), programmingLanguages.getText().toString(), interests.getText().toString()));
     }
 
     private void nextButton() {
@@ -48,7 +48,7 @@ public class UserInfo extends AppCompatActivity {
                 boolean isSet = isFieldSet();
                 if(isSet) {
                     submitFields();
-                    Intent intent = Dashboard.makeIntent(UserInfo.this);
+                    Intent intent = DiscoveryPage.makeIntent(UserInfo.this);
                     startActivity(intent);
                 }
             }

@@ -1,6 +1,7 @@
 package com.example.stormhacks;
 
 
+import android.content.Context;
 import android.icu.lang.UScript;
 
 import androidx.annotation.NonNull;
@@ -10,17 +11,19 @@ import java.util.Iterator;
 import java.util.List;
 
 public class UserManager implements Iterable<Users> {
-    List<Users> users = new ArrayList<>();
-    DatabaseManager database;
+    private static List<Users> users = new ArrayList<>();
+    private static DatabaseManager database;
     // singleton support
     private static UserManager instance;
     private UserManager() {
         // prevent instantiation
     }
-    public static UserManager getInstance() {
+    public static UserManager getInstance(Context context) {
         if(instance == null) {
             instance = new UserManager();
         }
+        database = DatabaseManager.getInstance(context);
+        users = database.getAllUsers();
         return instance;
     }
 
